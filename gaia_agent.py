@@ -11,6 +11,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 
 # Tools
 from langchain_tavily import TavilySearch
+from tools import YoutubeQueryTool, ReadDocumentsTool
 
 # Misc
 from dotenv import load_dotenv
@@ -41,15 +42,15 @@ class AgentState(MessagesState):
 class GAIAAgent:
     def __init__(self):
         # Define the tools
-        self.tools = [TavilySearch(max_results=5)]
+        self.tools = [TavilySearch(max_results=5), YoutubeQueryTool, ReadDocumentsTool]
 
         # Define LLM Models
-        llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash-lite", temperature=0)
-        # llm = ChatOpenAI(model="gpt-4.1-nano", temperature=0)
-        llm_with_tools = llm.bind_tools(
-            self.tools
+        llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
+        # llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0)
+        llm_with_tools = llm.bind_tools(self.tools)
+        llm_with_structured_output = llm.with_structured_output(
+            FinalResponseOutput, method="function_calling"
         )
-        llm_with_structured_output = llm.with_structured_output(FinalResponseOutput, method="function_calling")
 
         # Define the system message
         sys_msg = SystemMessage(
@@ -122,7 +123,6 @@ class GAIAAgent:
 
 ### Testing the agent
 if __name__ == "__main__":
-
     question = "How many studio albums were published by Mercedes Sosa between 2000 and 2009 (included)? You can use the latest 2022 version of english wikipedia."
 
     # Run the agent with the test case question
