@@ -147,12 +147,11 @@ class GAIAAgent:
 
 ### Testing the agent
 if __name__ == '__main__':
-
     question_dict = {
-        "task_id": "a0c07678-e491-4bbc-8f0b-07405144218f",
-        "question": "Who are the pitchers with the number before and after Taishō Tamai's number as of July 2023? Give them to me in the form Pitcher Before, Pitcher After, use their last names only, in Roman characters.",
-        "Level": "1",
-        "file_name": ""
+        'task_id': 'a0c07678-e491-4bbc-8f0b-07405144218f',
+        'question': "Who are the pitchers with the number before and after Taishō Tamai's number as of July 2023? Give them to me in the form Pitcher Before, Pitcher After, use their last names only, in Roman characters.",
+        'Level': '1',
+        'file_name': '',
     }
 
     # Run the agent with the test case question
