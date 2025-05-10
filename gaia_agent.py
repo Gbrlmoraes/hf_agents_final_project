@@ -125,7 +125,10 @@ class GAIAAgent:
     def __call__(self, question_dict: str, debug: bool = False) -> str:
         # print(f"Agent received question (first 100 chars): {question[:100]}...")
         # Prepare the initial state for the graph
-        question = f'Question: {question_dict["question"]}. Task ID: {question_dict["task_id"]}. File name: {question_dict["file_name"]}.'
+        if question_dict['file_name'] == '':
+            question = f'Question: {question_dict["question"]}'
+        else:
+            question = f'Question: {question_dict["question"]}. Task ID: {question_dict["task_id"]}. File name: {question_dict["file_name"]}.'
         initial_state = {'messages': [HumanMessage(content=question)]}
         # Invoke the graph
         final_state = self.graph.invoke(initial_state)
@@ -146,10 +149,10 @@ class GAIAAgent:
 if __name__ == '__main__':
 
     question_dict = {
-        "task_id": "7bd855d8-463d-4ed5-93ca-5fe35145f733",
-        "question": "The attached Excel file contains the sales of menu items for a local fast-food chain. What were the total sales that the chain made from food (not including drinks)? Express your answer in USD with two decimal places.",
+        "task_id": "a0c07678-e491-4bbc-8f0b-07405144218f",
+        "question": "Who are the pitchers with the number before and after Taishō Tamai's number as of July 2023? Give them to me in the form Pitcher Before, Pitcher After, use their last names only, in Roman characters.",
         "Level": "1",
-        "file_name": "7bd855d8-463d-4ed5-93ca-5fe35145f733.xlsx"
+        "file_name": ""
     }
 
     # Run the agent with the test case question
