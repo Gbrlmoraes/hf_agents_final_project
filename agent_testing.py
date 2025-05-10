@@ -27,7 +27,7 @@ with open(
         gaia_agent = GAIAAgent()
 
         # Run the agent with the test case question
-        response = gaia_agent(question)
+        response = gaia_agent(test_case)
 
         # Check final answer
         print(f'Final Answer: {response}\n')
