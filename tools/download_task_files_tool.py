@@ -9,6 +9,7 @@ DEFAULT_API_URL = 'https://agents-course-unit4-scoring.hf.space'
 @tool
 def DownloadTaskFilesTool(task_id: str) -> str:
     """
+    Useful when the user tells that the question has a file attached, otherwise it should not be used.
     Downloads a document file associated with a task ID and saves it to a temporary file.
     The file will persist after the function returns and the caller is responsible for its cleanup.
 
